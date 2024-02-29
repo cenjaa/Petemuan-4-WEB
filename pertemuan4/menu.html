@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    var totaltransaksi = 0;
+
+    function addMakanan(){
+        const A_makanan = ["Nasi Goreng","Mie Goreng","Mie Kuah"];
+        const H_makanan = [5000,6000,7000];
+        var T = document.getElementById("sel1").value;
+        var U = parseInt(document.getElementById("sel1por").value);
+        var namaMkn = A_makanan[T];
+        var hargaMkn = H_makanan[T]
+        var teksnya = namaMkn+" "+U+" porsi: "+ U*hargaMkn;
+        alert(teksnya);
+        //menambah ke pesanan
+        var optionBaru = document.createElement("option");
+        optionBaru.text = teksnya;
+        optionBaru.value = U*hargaMkn;
+        document.getElementById("sel3").add(optionBaru);
+        totaltransaksi = totaltransaksi +  U*hargaMkn;
+    }
+
+    function cekTotal(){
+        alert("Total Transaksi: Rp. "+totaltransaksi);
+    }
+
+    function batalkanItem(){
+        T = document.getElementById("sel3");
+        alert(T.value);
+        totaltransaksi = totaltransaksi - T.value; 
+        T.remove(T.selectedIndex);
+    }
+  </script>
+</head>
+<body>
+
+<div class="container mt-3">
+  <h2>Daftar Menu</h2>
+  <p>Silahkan pilih menu yang ingin Anda pesan</p>
+  <form action="/action_page.php">
+    <div class="row">
+        <div class="col p-3 bg-dark text-white">
+            <label for="sel1" class="form-label">Daftar Makanan:</label>
+            <select class="form-select" id="sel1" name="sellist1">
+                <option value="0">1. Nasi Goreng - Rp. 5000</option>
+                <option value="1">2. Mie Goreng - Rp. 6000</option>
+                <option value="2">3. Mie Kuah - Rp. 7000</option>
+            </select>
+            <br/>
+            <select class="form-select" id="sel1por" name="sellist1">
+                <option>1 porsi</option>
+                <option>2 porsi</option>
+                <option>3 porsi</option>
+                <option>4 porsi</option>
+                <option>5 porsi</option>
+            </select>
+            <button type="button" class="btn btn-primary mt-3" onclick="addMakanan()">Tambahkan makanan ke pesanan</button>
+        </div>
+        <div class="col p-3 bg-light text-dark">
+                <label for="sel1" class="form-label">Daftar Minuman:</label>
+                    <select class="form-select" id="sel2" name="sellist1">
+                    <option>1. Es Teh Manis - Rp. 1000</option>
+                    <option>2. Teh Manis Hangat - Rp. 500</option>
+                </select>
+                <br/>
+                <select class="form-select" id="sel2por" name="sellist1">
+                    <option>1 porsi</option>
+                    <option>2 porsi</option>
+                    <option>3 porsi</option>
+                    <option>4 porsi</option>
+                    <option>5 porsi</option>
+                </select>
+                <button type="button" class="btn btn-primary mt-3">Tambahkan minuman ke pesanan</button>
+        </div>
+    </div>
+    
+    <br>
+    
+    <label for="sel2" class="form-label">Daftar Pesanan saat ini:</label>
+    <select multiple class="form-select" id="sel3" name="sellist2">
+    </select>
+    <button type="button" class="btn btn-danger mt-3" onclick="batalkanItem()">Batalkan pesanan yang dipilih</button>
+    <button type="button" class="btn btn-warning mt-3" onclick="cekTotal()">Cek Total Transaksi</button>
+    <button type="button" class="btn btn-primary mt-3">Finalisasi Pesanan</button>
+  </form>
+</div>
+
+</body>
+</html>
